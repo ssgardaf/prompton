@@ -67,7 +67,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages.append({
         "role": "assistant",
-        "content": f"키: {height} cm, 몸무게: {weight} kg, 성별: {sex}, 수축기 혈압: {systolic_bp} mmHg, 이완기 혈압: {diastolic_bp} mmHg, 심박수: {heart_rate} bpm, 혈당: {glucose} mg/dL, 콜레스테롤: {cholesterol} mg/dL, LDL: {ldl} mg/dL, HDL: {hdl} mg/dL, BMI: {bmi}, ALT: {alt} U/L, AST: {ast} U/L, 요산: {uric_acid} mg/dL"
+        "content": f"내 건강검진 수치 : 키: {height} cm, 몸무게: {weight} kg, 성별: {sex}, 수축기 혈압: {systolic_bp} mmHg, 이완기 혈압: {diastolic_bp} mmHg, 심박수: {heart_rate} bpm, 혈당: {glucose} mg/dL, 콜레스테롤: {cholesterol} mg/dL, LDL: {ldl} mg/dL, HDL: {hdl} mg/dL, BMI: {bmi}, ALT: {alt} U/L, AST: {ast} U/L, 요산: {uric_acid} mg/dL"
     }
     )
 
@@ -77,7 +77,7 @@ with st.expander("건강 평가", expanded=True):
         # 사용자 메시지 추가
         st.session_state.messages.append({"role": "user", "content": "내 건강수치를 기반으로 내 건강을 평가해줘"})
         with st.chat_message("user"):
-            st.markdown("내 건강수치를 기반으로 내 건강을 평가해줘")
+            st.markdown("위에 내 건강수치를 기반으로 내 건강을 평가해줘")
         
         # 챗봇 응답 받기
         result = get_health_info(glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid)
