@@ -73,9 +73,9 @@ if "messages" not in st.session_state:
 
 # 사용자 입력 받기
 with st.expander("건강 평가", expanded=True):
-    if st.button("위에 적어둔 건강검진 수치를 기반으로 내 건강을 평가해줘"):
+    if st.button("내 건강을 평가해줘"):
         # 사용자 메시지 추가
-        st.session_state.messages.append({"role": "user", "content": "내 건강수치를 기반으로 내 건강을 평가해줘"})
+        st.session_state.messages.append({"role": "user", "content": "위에 내 건강수치를 기반으로 내 건강을 평가해줘"})
         with st.chat_message("user"):
             st.markdown("위에 내 건강수치를 기반으로 내 건강을 평가해줘")
         
