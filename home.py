@@ -14,6 +14,7 @@ def get_health_info(glucose, cholesterol, ldl, height, weight, sex, systolic_bp,
     
     body = {
         "hash": "2892794f90bfa27323e2c928b093c92f3469120cde02c41a98fbdcf3588e7929",
+        "name" : name,
         "glucose": glucose,
         "cholesterol": cholesterol,
         "ldl": ldl,
@@ -41,6 +42,7 @@ def get_health_info(glucose, cholesterol, ldl, height, weight, sex, systolic_bp,
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
+    name = st.text_input("이름", value="원티드", help="이름을 입력하세요.")
     glucose = st.number_input("혈당 수치", min_value=0, max_value=500, value=150, help="혈당 수치는 혈액 내 포도당의 농도를 나타냅니다.")
     ldl = st.number_input("LDL 수치", min_value=0, max_value=500, value=100, help="LDL 수치는 저밀도 지단백 콜레스테롤의 양을 나타냅니다.")
     height = st.number_input("키 (cm)", min_value=0, max_value=300, value=170, help="키를 입력하세요.")
@@ -80,7 +82,7 @@ with st.expander("건강 평가", expanded=True):
             st.markdown("위에 내 건강수치를 기반으로 내 건강을 평가해줘")
         
         # 챗봇 응답 받기
-        result = get_health_info(glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid)
+        result = get_health_info(name,glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid)
         response = result.get("choices", [{"message": {"content": "응답을 받을 수 없습니다."}}])[0]["message"]["content"]
         
         # 챗봇 메시지 추가
