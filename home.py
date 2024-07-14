@@ -89,4 +89,4 @@ with st.expander("건강 평가", expanded=True):
             st.markdown(response)
 
 # # st.write(response)
-# st.write(st.session_state)
+st.write(st.session_state)
