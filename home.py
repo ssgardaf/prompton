@@ -5,7 +5,7 @@ st.set_page_config(layout="wide")  # 와이드 화면 설정
 
 st.title("웰빙 매니저")
 
-def get_health_info(glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid):
+def get_health_info(name,glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid):
     headers = {
         'Content-Type': 'application/json; charset=utf-8',
         'apiKey': '0cbef3b9254613826829f67cd3c171c296d08b4ef69ec27e089ba3a1925fca89',
