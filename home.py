@@ -3,7 +3,7 @@ import json
 import streamlit as st
 st.set_page_config(layout="wide")  # 와이드 화면 설정
 
-st.title("건강 헬퍼")
+st.title("웰빙 매니저")
 
 def get_health_info(glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid):
     headers = {
