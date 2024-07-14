@@ -5,30 +5,32 @@ st.set_page_config(layout="wide")  # 와이드 화면 설정
 
 st.title("웰빙 매니저")
 
-def get_health_info(name,glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid):
+def get_health_info(name, glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid):
     headers = {
         'Content-Type': 'application/json; charset=utf-8',
-        'apiKey': '0cbef3b9254613826829f67cd3c171c296d08b4ef69ec27e089ba3a1925fca89',
-        'project': 'PROMPTHON_PRJ_446'
+        'apiKey': 'f47b9c01160dd7af77ff26437499a18fd7b5b450bb679c',
+        'project': 'GPT_TEST'
     }
     
     params = {
-        "hash": "2892794f90bfa27323e2c928b093c92f3469120cde02c41a98fbdcf3588e7929",
-        "name" : name,
-        "glucose": glucose,
-        "cholesterol": cholesterol,
-        "ldl": ldl,
-        "height": height,
-        "weight": weight,
-        "sex": sex,
-        "systolic_bp": systolic_bp,
-        "diastolic_bp": diastolic_bp,
-        "heart_rate": heart_rate,
-        "hdl": hdl,
-        "bmi": bmi,
-        "alt": alt,
-        "ast": ast,
-        "uric_acid": uric_acid
+        "hash": "f3bc11b983e969012e91869d3235252352351d3t432",
+        "params": {
+            "name": name,
+            "glucose": glucose,
+            "cholesterol": cholesterol,
+            "ldl": ldl,
+            "height": height,
+            "weight": weight,
+            "sex": sex,
+            "systolic_bp": systolic_bp,
+            "diastolic_bp": diastolic_bp,
+            "heart_rate": heart_rate,
+            "hdl": hdl,
+            "bmi": bmi,
+            "alt": alt,
+            "ast": ast,
+            "uric_acid": uric_acid
+        }
     }
     
     response = requests.post(
