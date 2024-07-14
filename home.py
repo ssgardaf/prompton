@@ -12,7 +12,7 @@ def get_health_info(name,glucose, cholesterol, ldl, height, weight, sex, systoli
         'project': 'PROMPTHON_PRJ_446'
     }
     
-    body = {
+    params = {
         "hash": "2892794f90bfa27323e2c928b093c92f3469120cde02c41a98fbdcf3588e7929",
         "name" : name,
         "glucose": glucose,
@@ -34,7 +34,7 @@ def get_health_info(name,glucose, cholesterol, ldl, height, weight, sex, systoli
     response = requests.post(
         url="https://api-laas.wanted.co.kr/api/preset/chat/completions",
         headers=headers,
-        data=json.dumps(body)
+        data=json.dumps(params)
     )
     
     return response.json()
