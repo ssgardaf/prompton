@@ -1,62 +1,92 @@
-import streamlit as st
 import requests
+import json
+import streamlit as st
+st.set_page_config(layout="wide")  # 와이드 화면 설정
 
-st.set_page_config(layout="wide")  # 페이지 레이아웃을 wide로 설정
+st.title("건강 챗봇")
 
-# 네이버 클라우드 플랫폼 API 키 설정
-client_id = "YOUR_CLIENT_ID"
-client_secret = "YOUR_CLIENT_SECRET"
-
-def analyze_text(text):
-    url = "https://naveropenapi.apigw.ntruss.com/nlp/v1/analyze"
+def get_health_info(glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid):
     headers = {
-        "X-NCP-APIGW-API-KEY-ID": client_id,
-        "X-NCP-APIGW-API-KEY": client_secret,
-        "Content-Type": "application/json"
+        'Content-Type': 'application/json; charset=utf-8',
+        'apiKey': '0cbef3b9254613826829f67cd3c171c296d08b4ef69ec27e089ba3a1925fca89',
+        'project': 'PROMPTHON_PRJ_446'
     }
-    data = {
-        "content": text,
-        "analysisCode": "morp"
+    
+    body = {
+        "hash": "2892794f90bfa27323e2c928b093c92f3469120cde02c41a98fbdcf3588e7929",
+        "glucose": glucose,
+        "cholesterol": cholesterol,
+        "ldl": ldl,
+        "height": height,
+        "weight": weight,
+        "sex": sex,
+        "systolic_bp": systolic_bp,
+        "diastolic_bp": diastolic_bp,
+        "heart_rate": heart_rate,
+        "hdl": hdl,
+        "bmi": bmi,
+        "alt": alt,
+        "ast": ast,
+        "uric_acid": uric_acid
     }
-    response = requests.post(url, headers=headers, json=data)
+    
+    response = requests.post(
+        url="https://api-laas.wanted.co.kr/api/preset/chat/completions",
+        headers=headers,
+        data=json.dumps(body)
+    )
+    
     return response.json()
 
-def main():
-    st.title("건강 라이프스타일 추천")
-    st.write("건강검진 데이터를 입력하고, 건강한 라이프스타일을 추천받으세요.")
+col1, col2, col3, col4 = st.columns(4)
 
-    # 건강검진 데이터 입력
-    age = st.number_input("나이", min_value=0, max_value=120, step=1)
-    weight = st.number_input("체중 (kg)", min_value=0.0, max_value=200.0, step=0.1)
-    height = st.number_input("키 (cm)", min_value=0.0, max_value=250.0, step=0.1)
-    blood_pressure = st.number_input("혈압 (mmHg)", min_value=0, max_value=300, step=1)
-    cholesterol = st.number_input("콜레스테롤 (mg/dL)", min_value=0, max_value=500, step=1)
-    blood_sugar = st.number_input("혈당 (mg/dL)", min_value=0, max_value=500, step=1)
+with col1:
+    glucose = st.number_input("혈당 수치", min_value=0, max_value=500, value=150, help="혈당 수치는 혈액 내 포도당의 농도를 나타냅니다.")
+    ldl = st.number_input("LDL 수치", min_value=0, max_value=500, value=100, help="LDL 수치는 저밀도 지단백 콜레스테롤의 양을 나타냅니다.")
+    height = st.number_input("키 (cm)", min_value=0, max_value=300, value=170, help="키를 입력하세요.")
+    sex = st.selectbox("성별", ["남성", "여성"], help="성별을 선택하세요.")
 
-    if st.button("추천 받기"):
-        # 간단한 추천 로직 (예시)
-        recommendations = []
-        if weight / ((height / 100) ** 2) > 25:
-            recommendations.append("체중을 줄이기 위해 규칙적인 운동을 하세요.")
-        if blood_pressure > 120:
-            recommendations.append("혈압을 낮추기 위해 저염식을 하세요.")
-        if cholesterol > 200:
-            recommendations.append("콜레스테롤을 낮추기 위해 건강한 식단을 유지하세요.")
-        if blood_sugar > 100:
-            recommendations.append("혈당을 관리하기 위해 당 섭취를 줄이세요.")
+with col2:
+    systolic_bp = st.number_input("수축기 혈압 (mmHg)", min_value=0, max_value=300, value=120, help="수축기 혈압을 입력하세요.")
+    heart_rate = st.number_input("심박수 (bpm)", min_value=0, max_value=200, value=70, help="심박수를 입력하세요.")
+    bmi = st.number_input("체질량지수 (BMI)", min_value=0, max_value=100, value=22, help="체질량지수를 입력하세요.")
+    ast = st.number_input("AST 수치", min_value=0, max_value=100, value=30, help="AST 수치를 입력하세요.")
 
-        if recommendations:
-            st.write("추천 라이프스타일:")
-            for rec in recommendations:
-                st.write(f"- {rec}")
-        else:
-            st.write("현재 건강 상태가 양호합니다. 계속해서 건강한 생활을 유지하세요!")
+with col3:
+    cholesterol = st.number_input("콜레스테롤 수치", min_value=0, max_value=500, value=200, help="콜레스테롤 수치는 혈액 내 콜레스테롤의 양을 나타냅니다.")
+    weight = st.number_input("몸무게 (kg)", min_value=0, max_value=300, value=70, help="몸무게를 입력하세요.")
+    diastolic_bp = st.number_input("이완기 혈압 (mmHg)", min_value=0, max_value=200, value=80, help="이완기 혈압을 입력하세요.")
+    hdl = st.number_input("HDL 수치", min_value=0, max_value=100, value=60, help="HDL 수치를 입력하세요.")
 
-        # 텍스트 분석 예제
-        text = " ".join(recommendations)
-        analysis_result = analyze_text(text)
-        st.write("텍스트 분석 결과:")
-        st.json(analysis_result)
+with col4:
+    alt = st.number_input("ALT 수치", min_value=0, max_value=100, value=30, help="ALT 수치를 입력하세요.")
+    uric_acid = st.number_input("요산 수치", min_value=0, max_value=10, value=5, help="요산 수치를 입력하세요.")
 
-if __name__ == "__main__":
-    main()
+# 대화 기록을 화면에 표시
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+    # st.session_state.messages.append({
+    #     "role": "assistant",
+    #     "content": f"키: {height} cm, 몸무게: {weight} kg, 성별: {sex}, 수축기 혈압: {systolic_bp} mmHg, 이완기 혈압: {diastolic_bp} mmHg, 심박수: {heart_rate} bpm, 혈당: {glucose} mg/dL, 콜레스테롤: {cholesterol} mg/dL, LDL: {ldl} mg/dL, HDL: {hdl} mg/dL, BMI: {bmi}, ALT: {alt} U/L, AST: {ast} U/L, 요산: {uric_acid} mg/dL"
+    # }
+    # )
+
+# 사용자 입력 받기
+with st.expander("건강 평가", expanded=True):
+    if st.button("내 건강수치를 기반으로 내 건강을 평가해줘"):
+        # 사용자 메시지 추가
+        st.session_state.messages.append({"role": "user", "content": "내 건강수치를 기반으로 내 건강을 평가해줘"})
+        with st.chat_message("user"):
+            st.markdown("내 건강수치를 기반으로 내 건강을 평가해줘")
+        
+        # 챗봇 응답 받기
+        result = get_health_info(glucose, cholesterol, ldl, height, weight, sex, systolic_bp, diastolic_bp, heart_rate, hdl, bmi, alt, ast, uric_acid)
+        response = result.get("choices", [{"message": {"content": "응답을 받을 수 없습니다."}}])[0]["message"]["content"]
+        
+        # 챗봇 메시지 추가
+        st.session_state.messages.append({"role": "assistant", "content": response})
+        with st.chat_message("assistant"):
+            st.markdown(response)
+
+# # st.write(response)
+# st.write(st.session_state)
