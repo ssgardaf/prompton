@@ -66,7 +66,7 @@ with col4:
 if "messages" not in st.session_state:
     st.session_state.messages = []
     st.session_state.messages.append({
-        "role": "assistant",
+        "role": "user",
         "content": f"내 건강검진 수치 : 키: {height} cm, 몸무게: {weight} kg, 성별: {sex}, 수축기 혈압: {systolic_bp} mmHg, 이완기 혈압: {diastolic_bp} mmHg, 심박수: {heart_rate} bpm, 혈당: {glucose} mg/dL, 콜레스테롤: {cholesterol} mg/dL, LDL: {ldl} mg/dL, HDL: {hdl} mg/dL, BMI: {bmi}, ALT: {alt} U/L, AST: {ast} U/L, 요산: {uric_acid} mg/dL"
     }
     )
